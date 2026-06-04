@@ -5,13 +5,11 @@ import type { CreateShortUrlT } from '../types';
 export function useCreateShortUrl() {
     async function createShortUrl({ label, originalUrl }: CreateShortUrlT) {
         try {
-            const docRef = await addDoc(collection(db, 'urls'), {
-                label,
+            await addDoc(collection(db, 'urls'), {
+                label: `/${label}`,
                 originalUrl,
                 createdAt: new Date(),
             });
-
-            console.log('ID:', docRef.id);
         } catch (error) {
             console.error(error);
         }
