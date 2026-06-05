@@ -11,11 +11,15 @@ export function useCreateShortUrl() {
             const existingUrl = await getUrlByLabel(label);
             if (existingUrl) throw new Error('URL with this label already exists');
 
+            const formattedLabel = `/${label.trim().toLowerCase().replace(/\s+/g, '-')}`;
+
             await addDoc(collection(db, 'urls'), {
-                label: `/${label}`,
+                label: formattedLabel,
                 originalUrl,
                 createdAt: new Date(),
             });
+
+            return `${window.location.origin}${formattedLabel}`;
         } catch (error) {
             console.error(error);
         }
