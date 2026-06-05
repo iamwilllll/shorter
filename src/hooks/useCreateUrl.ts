@@ -7,22 +7,18 @@ export function useCreateShortUrl() {
     const { getUrlByLabel } = useGetUrlByLabel();
 
     async function createShortUrl({ label, originalUrl }: CreateShortUrlT) {
-        try {
-            const existingUrl = await getUrlByLabel(label);
-            if (existingUrl) throw new Error('URL with this label already exists');
+        const existingUrl = await getUrlByLabel(label);
+        if (existingUrl) throw new Error('URL with this label already exists');
 
-            const formattedLabel = `/${label.trim().toLowerCase().replace(/\s+/g, '-')}`;
+        const formattedLabel = `/${label.trim().toLowerCase().replace(/\s+/g, '-')}`;
 
-            await addDoc(collection(db, 'urls'), {
-                label: formattedLabel,
-                originalUrl,
-                createdAt: new Date(),
-            });
+        await addDoc(collection(db, 'urls'), {
+            label: formattedLabel,
+            originalUrl,
+            createdAt: new Date(),
+        });
 
-            return `${window.location.origin}${formattedLabel}`;
-        } catch (error) {
-            console.error(error);
-        }
+        return `${window.location.origin}${formattedLabel}`;
     }
 
     return { createShortUrl };

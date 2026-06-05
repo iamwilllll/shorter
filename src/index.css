@@ -1,1 +1,117 @@
 @import 'tailwindcss';
+
+:root {
+    --font-primary-base: 'Raleway', sans-serif;
+    --font-secondary-base: 'Nunito', sans-serif;
+
+    --color-primary-base: #ff2c2c;
+
+    --surface-primary: #0c0c0d;
+    --surface-secondary: #131313;
+    --surface-tertiary: #272727;
+
+    --text-primary: #ffffff;
+    --text-secondary: #c6c6c6;
+    --text-tertiary: #c1c1c1;
+
+    --surface-modal: #00000080;
+    --border-default: #303030;
+}
+
+@theme {
+    --font-primary: var(--font-primary-base);
+    --font-secondary: var(--font-secondary-base);
+
+    --color-brand: var(--color-primary-base);
+
+    --color-primary-surface: var(--surface-primary);
+    --color-secondary-surface: var(--surface-secondary);
+    --color-tertiary-surface: var(--surface-tertiary);
+
+    --color-primary-text: var(--text-primary);
+    --color-secondary-text: var(--text-secondary);
+    --color-tertiary-text: var(--text-tertiary);
+
+    --color-modal-surface: var(--surface-modal);
+    --color-default-border: var(--border-default);
+}
+
+svg {
+    display: block;
+    width: 25px;
+    height: 25px;
+}
+
+button {
+    cursor: pointer;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
+    background: var(--color-primary-surface);
+    color: var(--color-primary-text);
+    font-family: var(--font-primary);
+}
+
+.loader {
+    width: 40px;
+    aspect-ratio: 1;
+    position: relative;
+    margin: auto;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: -8px 0 0 -8px;
+    width: 16px;
+    aspect-ratio: 1;
+    background: var(--primary-color);
+    animation:
+        l2-1 2s infinite,
+        l2-2 1s infinite;
+}
+
+.loader:after {
+    background: white;
+    animation-delay: -1s, 0s;
+}
+
+@keyframes l2-1 {
+    0% {
+        top: 0;
+        left: 0;
+    }
+    25% {
+        top: 100%;
+        left: 0;
+    }
+    50% {
+        top: 100%;
+        left: 100%;
+    }
+    75% {
+        top: 0;
+        left: 100%;
+    }
+    100% {
+        top: 0;
+        left: 0;
+    }
+}
+
+@keyframes l2-2 {
+    40%,
+    50% {
+        transform: rotate(0.25turn) scale(0.5);
+    }
+    100% {
+        transform: rotate(0.5turn) scale(1);
+    }
+}
