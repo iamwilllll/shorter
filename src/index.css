@@ -44,6 +44,12 @@ button {
     cursor: pointer;
 }
 
+*,
+*:after,
+*:before {
+    border-box-sizing: border-box;
+}
+
 html,
 body,
 #root {
