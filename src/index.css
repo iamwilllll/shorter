@@ -1,8 +1,7 @@
 @import 'tailwindcss';
 
 :root {
-    --font-primary-base: 'Raleway', sans-serif;
-    --font-secondary-base: 'Nunito', sans-serif;
+    --font-primary-base: 'Inter', sans-serif;
 
     --color-primary-base: #ff2c2c;
 
@@ -20,7 +19,6 @@
 
 @theme {
     --font-primary: var(--font-primary-base);
-    --font-secondary: var(--font-secondary-base);
 
     --color-brand: var(--color-primary-base);
 
