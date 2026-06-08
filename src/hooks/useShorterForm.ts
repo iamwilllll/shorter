@@ -1,5 +1,5 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import type { CreateShortUrlT } from '../types';
+import type { CreateShortUrlT } from '@/types';
 import { useCreateShortUrl } from '.';
 import { useState } from 'react';
 

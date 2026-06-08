@@ -1,6 +1,6 @@
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../services';
-import type { ShortUrlT } from '../types';
+import { db } from '@/services';
+import type { ShortUrlT } from '@/types';
 
 export function useReadUrls() {
     async function readUrls() {

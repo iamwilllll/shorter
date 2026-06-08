@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import { RedirectionPage, NotFound } from './components';
-import { LandingPage } from './Layout';
+import { RedirectionPage } from './components';
+import { LandingPage, NotFound } from './pages';
 
 export default function App() {
     return (

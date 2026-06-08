@@ -1,4 +1,4 @@
-import { AuthNav, Button } from '../components';
+import { AuthNav, Button } from '@/components';
 
 export function LandingNav() {
     const motionProps = {

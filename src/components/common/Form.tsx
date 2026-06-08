@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import type { CreateShortUrlT } from '../types';
-import { useShorterForm } from '../hooks';
+import type { CreateShortUrlT } from '@/types';
+import { useShorterForm } from '@/hooks';
 
 function Message({ message, type }: { message?: string; type?: 'error' | 'success' }) {
     if (!message) return <div className="h-6" />;

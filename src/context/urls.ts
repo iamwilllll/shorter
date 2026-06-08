@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { ShortUrlT } from '../types';
+import type { ShortUrlT } from '@/types';
 
 type UrlsT = {
     urls: ShortUrlT[];

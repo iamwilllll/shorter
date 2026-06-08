@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import type { ShortUrlT } from '../types';
-import { db } from '../services';
+import type { ShortUrlT } from '@/types';
+import { db } from '@/services';
 
 export function useGetUrlByLabel() {
     const getUrlByLabel = useCallback(async (label: string) => {

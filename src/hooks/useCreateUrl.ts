@@ -1,7 +1,7 @@
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../services';
-import type { CreateShortUrlT } from '../types';
-import { useGetUrlByLabel } from '../hooks';
+import { db } from '@/services';
+import type { CreateShortUrlT } from '@/types';
+import { useGetUrlByLabel } from '@/hooks';
 
 export function useCreateShortUrl() {
     const { getUrlByLabel } = useGetUrlByLabel();

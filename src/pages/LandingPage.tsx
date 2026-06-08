@@ -1,4 +1,4 @@
-import { LandingNav } from '../components';
+import { LandingNav } from '@/components';
 
 export function LandingPage() {
     return (

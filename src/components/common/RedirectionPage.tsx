@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useGetUrlByLabel, useReadUrls } from '../hooks';
-import { useUrls } from '../context';
+import { useGetUrlByLabel, useReadUrls } from '@/hooks';
+import { useUrls } from '@/context';
 
 export function RedirectionPage() {
     const { readUrls } = useReadUrls();
