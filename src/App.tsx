@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import { Form, RedirectionPage, NotFound } from './components';
+import { RedirectionPage, NotFound } from './components';
+import { LandingPage } from './Layout';
 
 export default function App() {
     return (
         <Routes>
-            <Route index element={<Form />} />
+            <Route index element={<LandingPage />} />
             <Route path="/*" element={<RedirectionPage />}></Route>
             <Route path="/404" element={<NotFound />}></Route>
         </Routes>
