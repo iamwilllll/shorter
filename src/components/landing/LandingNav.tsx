@@ -1,6 +1,6 @@
 import { AuthNav, Button } from '@/components';
 
-export function LandingNav() {
+export function LandingNav({ className }: { className?: string }) {
     const motionProps = {
         animate: { y: 0 },
         initial: { y: 5 },
@@ -8,7 +8,7 @@ export function LandingNav() {
     };
 
     return (
-        <nav className="flex items-center justify-between">
+        <nav className={`flex items-center justify-between ${className}`}>
             <Button className="flex items-center gap-1.5 bg-transparent hover:bg-transparent" {...motionProps}>
                 <svg className="text-brand">
                     <use href="/icon.svg#link-icon" />
