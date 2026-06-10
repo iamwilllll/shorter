@@ -1,12 +1,70 @@
-import { LandingNav, LandingHero } from '@/components';
+import { LandingNav, LandingHero, LandingFeatureCard } from '@/components';
+import { Footer } from '@/Layout';
 
 export function LandingPage() {
+    const features = [
+        {
+            icon: (
+                <svg className="text-brand text-2xl">
+                    <use href="/assets/icons.svg#analytics-icon" />
+                </svg>
+            ),
+            title: 'Powerful analytics',
+            description: 'Track clicks in real time and visualize your performance with beautiful analytics.',
+        },
+        {
+            icon: (
+                <svg className="text-brand text-2xl">
+                    <use href="/assets/icons.svg#qr-icon" />
+                </svg>
+            ),
+            title: 'QR code generation',
+            description: 'Generate QR codes, and share with everyone online or offline.',
+        },
+        {
+            icon: (
+                <svg className="text-brand text-2xl">
+                    <use href="/assets/icons.svg#link-icon" />
+                </svg>
+            ),
+            title: 'Custom links',
+            description: 'Create custom short URLs that are easy to remember and share.',
+        },
+    ];
+
     return (
-        <section className="box-border grid h-screen max-h-screen grid-cols-1 grid-rows-[auto_1fr] place-items-center gap-5 p-5">
+        <main className="grid h-screen grid-rows-[auto_1fr] gap-5 p-5">
             <LandingNav className="col-start-1 row-start-1 w-full" />
-            <div className="col-start-1 row-start-2 h-full min-h-0 w-full">
-                <LandingHero className="h-full w-full" />
-            </div>
-        </section>
+
+            <section className="row-start-2 grid min-h-0 grid-cols-2 grid-rows-[5.5fr_2.5fr_1fr] gap-5">
+                <LandingHero className="col-start-1 col-end-3 row-start-1 row-end-2 grid grid-cols-2" />
+
+                <aside className="bg-secondary-surface border-default-border col-start-1 col-end-3 row-start-2 grid w-full grid-cols-3 gap-5 place-self-center rounded-xl border p-5">
+                    {features.map((feature, index) => {
+                        const LandingFeatureCardProps = {
+                            initial: { y: 5, opacity: 0 },
+                            animate: { y: 0, opacity: 1 },
+                            transition: {
+                                delay: index * 0.1,
+                                duration: 0.2,
+                                ease: 'linear',
+                            },
+                        };
+
+                        return (
+                            <LandingFeatureCard
+                                {...LandingFeatureCardProps}
+                                key={index}
+                                icon={feature.icon}
+                                title={feature.title}
+                                description={feature.description}
+                            />
+                        );
+                    })}
+                </aside>
+
+                <Footer className="col-start-1 col-end-3 row-start-3" />
+            </section>
+        </main>
     );
 }
