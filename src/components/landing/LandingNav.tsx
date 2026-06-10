@@ -8,7 +8,7 @@ export function LandingNav({ className }: { className?: string }) {
     };
 
     return (
-        <nav className={`flex items-center justify-between ${className}`}>
+        <nav className={`flex items-center justify-between ${className || ''}`}>
             <Button className="flex items-center gap-1.5 bg-transparent hover:bg-transparent" {...motionProps}>
                 <svg className="text-brand">
                     <use href="/icon.svg#link-icon" />
