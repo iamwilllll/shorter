@@ -7,10 +7,10 @@ type LandingHeroProps = {
 
 export function LandingHero({ className, ...props }: LandingHeroProps) {
     return (
-        <motion.section className={`${className || ''}`} {...props}>
-            <motion.section className="m-auto md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 md:max-w-130">
+        <motion.section className={` ${className || ''}`} {...props}>
+            <motion.section className="mb-10 md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 md:m-auto md:max-w-130">
                 <motion.div
-                    className="relative mb-5 flex w-fit justify-center overflow-hidden rounded-full p-px"
+                    className="relative mx-auto mb-5 flex w-fit justify-center overflow-hidden rounded-full p-px md:m-0 md:mb-5"
                     transition={{ opacity: { duration: 1.5 } }}
                 >
                     <motion.div

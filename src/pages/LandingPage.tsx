@@ -33,13 +33,13 @@ export function LandingPage() {
     ];
 
     return (
-        <main className="grid h-screen grid-rows-[auto_1fr] gap-5 p-5">
+        <main className="m-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-10 p-4 md:gap-5 md:p-5">
             <LandingNav className="col-start-1 row-start-1 w-full" />
 
-            <section className="row-start-2 grid min-h-0 grid-cols-2 grid-rows-[5.5fr_2.5fr_1fr] gap-5">
-                <LandingHero className="col-start-1 col-end-3 row-start-1 row-end-2 grid grid-cols-2" />
+            <section className="row-start-2 grid min-h-0 gap-10 md:grid-cols-2 md:grid-rows-[5.5fr_2.5fr_1fr] md:gap-5">
+                <LandingHero className="grid min-h-100 grid-cols-1 md:col-start-1 md:col-end-3 md:row-start-1 md:row-end-2 md:grid-cols-2" />
 
-                <aside className="bg-secondary-surface border-default-border col-start-1 col-end-3 row-start-2 grid w-full grid-cols-3 gap-5 place-self-center rounded-xl border p-5">
+                <aside className="bg-secondary-surface border-default-border grid w-full grid-cols-1 gap-5 rounded-xl border p-5 sm:grid-cols-2 md:col-start-1 md:col-end-3 md:row-start-2 md:grid-cols-3">
                     {features.map((feature, index) => {
                         const LandingFeatureCardProps = {
                             initial: { y: 5, opacity: 0 },
@@ -63,7 +63,7 @@ export function LandingPage() {
                     })}
                 </aside>
 
-                <Footer className="col-start-1 col-end-3 row-start-3" />
+                <Footer className="md:col-start-1 md:col-end-3 md:row-start-3" />
             </section>
         </main>
     );

@@ -6,7 +6,7 @@ type FooterProps = {
 
 export function Footer({ className }: FooterProps) {
     return (
-        <footer className={`text-secondary-text flex justify-between px-5 ${className || ''}`}>
+        <footer className={`text-secondary-text flex items-end justify-between pb-5 ${className || ''}`}>
             <motion.p
                 className="text-sm"
                 initial={{ opacity: 0, y: 5 }}
