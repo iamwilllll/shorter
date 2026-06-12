@@ -1,12 +1,10 @@
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { type SubmitHandler } from 'react-hook-form';
 import type { CreateShortUrlT } from '@/types';
 import { useCreateShortUrl } from '.';
 import { useState } from 'react';
 
 export function useShorterForm() {
     const { createShortUrl } = useCreateShortUrl();
-
-    const { reset } = useForm<CreateShortUrlT>();
 
     const [successfulMessage, setSuccessfulMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -30,7 +28,6 @@ export function useShorterForm() {
 
         if (savedURL) {
             setSuccessfulMessage(savedURL);
-            reset();
         }
     };
 
