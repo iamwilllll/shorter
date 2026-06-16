@@ -1,5 +1,6 @@
 import { useLoading } from '@/context';
 import { useAuth } from '@/hooks';
+import { useEffect } from 'react';
 
 type AppLayoutProps = {
     className?: string;
@@ -9,6 +10,14 @@ type AppLayoutProps = {
 export function AppLayout({ className, children }: AppLayoutProps) {
     const { loading } = useLoading();
     const { isLoading } = useAuth();
+
+    useEffect(() => {
+        if (loading || isLoading) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }, [loading, isLoading]);
 
     return (
         <main className={className}>
