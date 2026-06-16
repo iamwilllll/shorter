@@ -1,8 +1,10 @@
 import { AuthNav, Button, UserMenu } from '@/components';
 import { useAuth } from '@/hooks';
+import { useNavigate } from 'react-router-dom';
 
 export function LandingNav({ className }: { className?: string }) {
     const { isLoading, user } = useAuth();
+    const navigate = useNavigate();
 
     const motionProps = {
         animate: { y: 0 },
@@ -12,7 +14,11 @@ export function LandingNav({ className }: { className?: string }) {
 
     return (
         <nav className={`flex items-center justify-between ${className || ''}`}>
-            <Button className="flex items-center gap-1.5 bg-transparent hover:bg-transparent md:px-0" {...motionProps}>
+            <Button
+                className="flex items-center gap-1.5 bg-transparent hover:bg-transparent md:px-0"
+                fn={() => navigate('/')}
+                {...motionProps}
+            >
                 <svg className="text-brand">
                     <use href="/icon.svg#link-icon" />
                 </svg>
