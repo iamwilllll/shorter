@@ -11,3 +11,10 @@ export type LoginFormT = {
     email: string;
     password: string;
 };
+
+export type SignupFormT = {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+};

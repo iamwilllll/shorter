@@ -59,11 +59,7 @@ export function Login() {
                         </button>
                     </form>
 
-                    <div className="my-6 flex items-center gap-4">
-                        <div className="border-default-border flex-1 border-t" />
-                        <span className="text-secondary-text text-sm">OR</span>
-                        <div className="border-default-border flex-1 border-t" />
-                    </div>
+                    <p className="text-secondary-text my-5 text-sm">OR</p>
 
                     <button
                         onClick={handleGoogleLogin}
