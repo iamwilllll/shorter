@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import { RedirectionPage } from './components';
-import { LandingPage, NotFound, Login, Signup } from './pages';
+import { RedirectionPage } from '@/components';
+import { LandingPage, NotFound, Login, Signup } from '@/pages';
 
 export default function App() {
     return (
