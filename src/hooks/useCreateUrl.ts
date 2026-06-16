@@ -17,15 +17,15 @@ export function useCreateShortUrl() {
             createdAt: new Date(),
         };
 
-        if (!isAuthenticated) {
-            const store = await getStore();
-            store.add(newUrl);
-        }
-
         const existingUrl = await getUrlByLabel(label);
         if (existingUrl) throw new Error('URL with this label already exists');
 
-        await addDoc(collection(db, 'urls'), newUrl);
+        const docRef = await addDoc(collection(db, 'urls'), newUrl);
+
+        if (!isAuthenticated && docRef.id) {
+            const store = await getStore();
+            store.add(newUrl);
+        }
 
         return `${window.location.origin}${newUrl.label}`;
     }
