@@ -1,6 +1,9 @@
 import { AuthNav, Button } from '@/components';
+import { useAuth } from '@/hooks';
 
 export function LandingNav({ className }: { className?: string }) {
+    const { isLoading, user } = useAuth();
+
     const motionProps = {
         animate: { y: 0 },
         initial: { y: 5 },
@@ -16,7 +19,14 @@ export function LandingNav({ className }: { className?: string }) {
 
                 <h2 className="text-2xl font-bold text-white">Shorter</h2>
             </Button>
-            <AuthNav {...motionProps} />
+
+            {isLoading ? (
+                <div className="bg-primary-surface h-10 w-10 rounded-full" />
+            ) : user ? (
+                <img src={user?.photoURL || '/avatar-placeholder.png'} alt="User avatar" className="h-10 w-10 rounded-full" />
+            ) : (
+                <AuthNav {...motionProps} />
+            )}
         </nav>
     );
 }

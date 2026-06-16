@@ -1,18 +1,9 @@
 import { useForm } from 'react-hook-form';
 import type { CreateShortUrlT } from '@/types';
 import { useShorterForm } from '@/hooks';
+import { ErrorMessage } from './ErrorMessage';
 
-function Message({ message, type }: { message?: string; type?: 'error' | 'success' }) {
-    if (!message) return <div className="h-6" />;
-
-    return (
-        <p className={`h-6 px-1 pt-1 text-xs transition-all ${type === 'success' ? 'text-green-600' : 'text-red-500'}`}>
-            {message}
-        </p>
-    );
-}
-
-export function Form({ className }: { className?: string }) {
+export function CreateUrlForm({ className }: { className?: string }) {
     const { register, handleSubmit, formState } = useForm<CreateShortUrlT>();
     const { onSubmit, validateURL, handleCopy, copied, errorMessage, successfulMessage } = useShorterForm();
 
@@ -40,7 +31,7 @@ export function Form({ className }: { className?: string }) {
                 })}
             />
 
-            <Message message={formState.errors.originalUrl?.message} />
+            <ErrorMessage message={formState.errors.originalUrl?.message} />
 
             <label htmlFor="label" className="text-secondary-text mt-2 mb-2 text-sm font-medium tracking-wide">
                 Custom Label
@@ -80,7 +71,7 @@ export function Form({ className }: { className?: string }) {
                 />
             </div>
 
-            <Message message={formState.errors.label?.message} />
+            <ErrorMessage message={formState.errors.label?.message} />
 
             <button
                 type="submit"

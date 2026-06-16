@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Form } from '@/components';
+import { CreateUrlForm } from '@/components';
 
 type LandingHeroProps = {
     className?: string;
@@ -39,7 +39,7 @@ export function LandingHero({ className, ...props }: LandingHeroProps) {
                 </p>
             </motion.section>
 
-            <Form className="m-auto max-w-130 md:col-span-1 md:col-start-2 md:row-start-1 md:row-end-2" />
+            <CreateUrlForm className="m-auto max-w-130 md:col-span-1 md:col-start-2 md:row-start-1 md:row-end-2" />
         </motion.section>
     );
 }
