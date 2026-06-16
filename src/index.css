@@ -13,7 +13,7 @@
     --text-secondary: #c6c6c6;
     --text-tertiary: #c1c1c1;
 
-    --surface-modal: #00000080;
+    --surface-modal: #000000b6;
     --border-default: #303030;
 }
 
@@ -76,7 +76,7 @@ body,
     margin: -8px 0 0 -8px;
     width: 16px;
     aspect-ratio: 1;
-    background: var(--primary-color);
+    background: var(--color-primary-base);
     animation:
         l2-1 2s infinite,
         l2-2 1s infinite;
