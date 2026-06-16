@@ -1,4 +1,4 @@
-import { AuthNav, Button } from '@/components';
+import { AuthNav, Button, UserMenu } from '@/components';
 import { useAuth } from '@/hooks';
 
 export function LandingNav({ className }: { className?: string }) {
@@ -23,7 +23,7 @@ export function LandingNav({ className }: { className?: string }) {
             {isLoading ? (
                 <div className="bg-primary-surface h-10 w-10 rounded-full" />
             ) : user ? (
-                <img src={user?.photoURL || '/avatar-placeholder.png'} alt="User avatar" className="h-10 w-10 rounded-full" />
+                <UserMenu />
             ) : (
                 <AuthNav {...motionProps} />
             )}
