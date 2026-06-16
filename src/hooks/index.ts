@@ -4,5 +4,5 @@ export * from './useGetUrlByLabel';
 
 export * from './useShorterForm';
 
-export * from './useLoginWithGoogle';
 export * from './useAuth';
+export * from './useLogin';
