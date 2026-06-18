@@ -1,33 +1,27 @@
-import { type SubmitHandler } from 'react-hook-form';
 import type { CreateShortUrlT } from '@/types';
 import { useCreateShortUrl } from '.';
 import { useState } from 'react';
+import { handleError } from '@/utils';
 
 export function useShorterForm() {
     const { createShortUrl } = useCreateShortUrl();
 
     const [successfulMessage, setSuccessfulMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
     const [copied, setCopied] = useState(false);
 
-    const onSubmit: SubmitHandler<CreateShortUrlT> = async (formData) => {
+    const handleUrlCreation = async (formData: CreateShortUrlT) => {
         setSuccessfulMessage('');
-        setErrorMessage('');
-        let savedURL = '';
 
         try {
-            savedURL = await createShortUrl({
+            const response = await createShortUrl({
                 ...formData,
                 label: formData.label.trim(),
                 originalUrl: formData.originalUrl.trim(),
             });
-        } catch (err) {
-            console.error((err as Error).message);
-            setErrorMessage('Failed to create short URL');
-        }
 
-        if (savedURL) {
-            setSuccessfulMessage(savedURL);
+            setSuccessfulMessage(response);
+        } catch (err) {
+            return handleError(err);
         }
     };
 
@@ -55,5 +49,5 @@ export function useShorterForm() {
         }, 2000);
     };
 
-    return { onSubmit, validateURL, handleCopy, successfulMessage, errorMessage, copied };
+    return { handleUrlCreation, validateURL, handleCopy, successfulMessage, copied };
 }

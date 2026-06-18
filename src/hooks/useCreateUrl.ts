@@ -1,8 +1,8 @@
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/services';
 import type { CreateShortUrlT } from '@/types';
 import { useGetUrlByLabel, useAuth } from '@/hooks';
-import { getStore } from '@/indexedDB';
+import { getStore, getIdOfUrlsInDB } from '@/indexedDB';
 
 export function useCreateShortUrl() {
     const { getUrlByLabel } = useGetUrlByLabel();
@@ -20,13 +20,20 @@ export function useCreateShortUrl() {
         const existingUrl = await getUrlByLabel(label);
         if (existingUrl) throw new Error('URL with this label already exists');
 
-        const docRef = await addDoc(collection(db, 'urls'), newUrl);
+        if (!isAuthenticated) {
+            const urlIds = await getIdOfUrlsInDB();
 
-        if (!isAuthenticated && docRef.id) {
+            if (urlIds.length > 25) {
+                throw new Error('You have reached the maximum limit of 25 URLs. Please sign up.');
+            }
+        }
+
+        await setDoc(doc(db, 'urls', newUrl.id), newUrl);
+
+        if (!isAuthenticated) {
             const store = await getStore();
             store.add(newUrl);
         }
-
         return `${window.location.origin}${newUrl.label}`;
     }
 
