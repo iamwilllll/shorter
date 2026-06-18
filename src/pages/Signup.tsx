@@ -4,9 +4,11 @@ import { AppLayout, Footer } from '@/Layout';
 import { useAuth, useSignup } from '@/hooks';
 import { Navigate } from 'react-router-dom';
 import { type SignupFormT } from '@/types';
+import { useState } from 'react';
 
 export function Signup() {
-    const { onSubmit, handleGoogleSignup } = useSignup();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const { handleEmailAndPasswordSignup, handleGoogleSignup } = useSignup();
     const { isAuthenticated, isLoading } = useAuth();
 
     const { register, handleSubmit, control, formState } = useForm<SignupFormT>();
@@ -17,6 +19,14 @@ export function Signup() {
 
     if (isLoading) return null;
     if (isAuthenticated) return <Navigate to="/" replace />;
+
+    const onSubmit = async (data: SignupFormT) => {
+        const response = await handleEmailAndPasswordSignup(data);
+
+        if (response?.error) {
+            setErrorMessage(response.message);
+        }
+    };
 
     return (
         <AppLayout className="m-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-10 p-4 md:gap-5 md:p-5">
@@ -29,7 +39,7 @@ export function Signup() {
                     <p className="text-secondary-text mt-2 text-center">Start shortening links and tracking analytics.</p>
                 </div>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-5">
                     <div>
                         <label className="text-secondary-text mb-2 block text-sm">Username</label>
 
@@ -94,6 +104,8 @@ export function Signup() {
 
                         <ErrorMessage message={formState.errors.confirmPassword?.message} />
                     </div>
+
+                    {errorMessage && <ErrorMessage message={errorMessage} className="w-full sm:p-0 sm:text-[14px]" />}
 
                     <button
                         type="submit"

@@ -2,10 +2,22 @@ import { useForm } from 'react-hook-form';
 import type { CreateShortUrlT } from '@/types';
 import { useShorterForm } from '@/hooks';
 import { ErrorMessage } from './ErrorMessage';
+import { useState } from 'react';
 
 export function CreateUrlForm({ className }: { className?: string }) {
+    const [errorMessage, setErrorMessage] = useState<string>('');
+
     const { register, handleSubmit, formState } = useForm<CreateShortUrlT>();
-    const { onSubmit, validateURL, handleCopy, copied, errorMessage, successfulMessage } = useShorterForm();
+    const { handleUrlCreation, validateURL, handleCopy, copied, successfulMessage } = useShorterForm();
+
+    const onSubmit = async (data: CreateShortUrlT) => {
+        setErrorMessage('');
+        const response = await handleUrlCreation(data);
+
+        if (response?.error) {
+            setErrorMessage(response.message);
+        }
+    };
 
     return (
         <form

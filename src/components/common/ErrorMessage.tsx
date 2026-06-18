@@ -1,8 +1,13 @@
-export function ErrorMessage({ message, type }: { message?: string; type?: 'error' | 'success' }) {
-    if (!message) return <div className="h-6" />;
+type ErrorMessageProps = {
+    className?: string;
+    message?: string;
+    type?: 'error' | 'success';
+};
 
+export function ErrorMessage({ className, message, type }: ErrorMessageProps) {
+    const textColor = type === 'success' ? 'text-green-600' : 'text-red-500';
     return (
-        <p className={`h-6 px-1 pt-1 text-xs transition-all ${type === 'success' ? 'text-green-600' : 'text-red-500'}`}>
+        <p className={`pt-1 pl-1 text-xs transition-all ${message ? 'h-5' : 'none'} ${textColor} ${className || ''} `}>
             {message}
         </p>
     );

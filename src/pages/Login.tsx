@@ -4,11 +4,22 @@ import { AppLayout, Footer } from '@/Layout';
 import { useAuth, useLogin } from '@/hooks';
 import { type LoginFormT } from '@/types';
 import { Navigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export function Login() {
-    const { onSubmit, handleGoogleLogin } = useLogin();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const { handleLoginWithEmailAndPass, handleGoogleLogin } = useLogin();
     const { isAuthenticated, isLoading } = useAuth();
     const { register, handleSubmit, formState } = useForm<LoginFormT>();
+
+    const onSubmit = async (data: LoginFormT) => {
+        const response = await handleLoginWithEmailAndPass(data);
+
+        if (response?.error) {
+            setErrorMessage(response.message);
+        }
+    };
 
     if (isLoading) return null;
     if (isAuthenticated) return <Navigate to="/" replace />;
@@ -23,7 +34,7 @@ export function Login() {
                         <p className="text-secondary-text mt-2 text-center">Sign in to manage your short links and analytics.</p>
                     </div>
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
                         <div>
                             <label className="text-secondary-text mb-2 block text-sm">Email</label>
                             <input
@@ -49,6 +60,8 @@ export function Login() {
 
                             <ErrorMessage message={formState.errors.password?.message} />
                         </div>
+
+                        {errorMessage && <ErrorMessage message={errorMessage} className="w-full sm:p-0 sm:text-[14px]" />}
 
                         <button
                             type="submit"
