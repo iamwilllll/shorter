@@ -6,13 +6,13 @@ export default function App() {
     return (
         <Routes>
             <Route index element={<LandingPage />} />
-            <Route path="/*" element={<RedirectionPage />}></Route>
-            <Route path="/404" element={<NotFound />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/*" element={<RedirectionPage />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
             <Route element={<ProtectedRoute />}>
-                <Route path="/dashboard" element={<Dashboard />}></Route>
+                <Route path="/dashboard" element={<Dashboard />} />
             </Route>
         </Routes>
     );
