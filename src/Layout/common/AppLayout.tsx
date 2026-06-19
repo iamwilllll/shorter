@@ -1,6 +1,6 @@
-import { useLoading } from '@/context';
-import { useAuth } from '@/hooks';
 import { useEffect } from 'react';
+import { useAuth } from '@/hooks';
+import { useLoading } from '@/context';
 
 type AppLayoutProps = {
     className?: string;

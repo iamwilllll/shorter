@@ -1,10 +1,10 @@
-import { useForm, useWatch } from 'react-hook-form';
-import { ErrorMessage, LandingNav } from '@/components';
-import { AppLayout, Footer } from '@/layout';
-import { useAuth, useSignup } from '@/hooks';
-import { Navigate } from 'react-router-dom';
-import { type SignupFormT } from '@/types';
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useForm, useWatch } from 'react-hook-form';
+import { useAuth, useSignup } from '@/hooks';
+import { AppLayout, Footer } from '@/layout';
+import { ErrorMessage, LandingNav } from '@/components';
+import { type SignupFormT } from '@/types';
 
 export function Signup() {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);

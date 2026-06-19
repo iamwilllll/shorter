@@ -7,7 +7,7 @@ export type ShortUrlT = {
 
 export type CreateShortUrlT = Omit<ShortUrlT, 'createdAt' | 'id'>;
 
-export type LoginFormT = {
+export type SigninFormT = {
     email: string;
     password: string;
 };

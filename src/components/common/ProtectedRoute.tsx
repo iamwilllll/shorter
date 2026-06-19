@@ -6,5 +6,5 @@ export function ProtectedRoute() {
 
     if (isLoading) return null;
 
-    return user ? <Outlet /> : <Navigate to="/login" replace />;
+    return user ? <Outlet /> : <Navigate to="signin" replace />;
 }

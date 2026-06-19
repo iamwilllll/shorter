@@ -1,11 +1,10 @@
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth } from '@/services';
-import { googleProvider } from '@/services';
-import { type LoginFormT } from '@/types';
+import { auth, googleProvider } from '@/services';
 import { handleError } from '@/utils';
+import { type SigninFormT } from '@/types';
 
-export function useLogin() {
-    const handleLoginWithEmailAndPass = async (data: LoginFormT) => {
+export function useSignin() {
+    const handleSigninWithEmailAndPass = async (data: SigninFormT) => {
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
         } catch (err) {
@@ -13,7 +12,7 @@ export function useLogin() {
         }
     };
 
-    const handleGoogleLogin = async () => {
+    const handleGoogleSignin = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
         } catch (err) {
@@ -21,5 +20,5 @@ export function useLogin() {
         }
     };
 
-    return { handleLoginWithEmailAndPass, handleGoogleLogin };
+    return { handleSigninWithEmailAndPass, handleGoogleSignin };
 }

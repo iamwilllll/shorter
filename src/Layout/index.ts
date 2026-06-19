@@ -1,2 +1,2 @@
-export * from './Footer';
-export * from './AppLayout';
+export * from './common/Footer';
+export * from './common/AppLayout';

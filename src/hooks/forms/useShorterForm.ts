@@ -1,7 +1,7 @@
-import type { CreateShortUrlT } from '@/types';
-import { useCreateShortUrl } from '.';
 import { useState } from 'react';
+import { useCreateShortUrl } from '@/hooks';
 import { handleError } from '@/utils';
+import type { CreateShortUrlT } from '@/types';
 
 export function useShorterForm() {
     const { createShortUrl } = useCreateShortUrl();

@@ -1,5 +1,5 @@
-import { AuthNav, Button } from '@/components';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components';
 
 export function LandingNav({ className }: { className?: string }) {
     const navigate = useNavigate();
@@ -24,7 +24,16 @@ export function LandingNav({ className }: { className?: string }) {
                 <h2 className="text-2xl font-bold text-white">Shorter</h2>
             </Button>
 
-            <AuthNav {...motionProps} />
+            <div className="flex gap-4">
+                <Button
+                    onClick={() => navigate('/signin')}
+                    className={`border-default-border border bg-transparent hover:bg-transparent`}
+                    label="Sign in"
+                    {...motionProps}
+                />
+
+                <Button onClick={() => navigate('/signup')} label="Sign up" {...motionProps} />
+            </div>
         </nav>
     );
 }

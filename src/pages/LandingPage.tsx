@@ -1,7 +1,7 @@
-import { LandingNav, LandingHero, LandingFeatureCard } from '@/components';
-import { AppLayout, Footer } from '@/layout';
-import { useAuth } from '@/hooks';
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '@/hooks';
+import { AppLayout, Footer } from '@/layout';
+import { LandingNav, LandingHero, LandingFeatureCard } from '@/components';
 
 export function LandingPage() {
     const { isLoading, isAuthenticated } = useAuth();

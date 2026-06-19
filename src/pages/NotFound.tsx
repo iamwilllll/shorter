@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AppLayout } from '@/layout';
 import { Button } from '@/components';
+
 export function NotFound() {
     const navigate = useNavigate();
 

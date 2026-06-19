@@ -1,11 +1,9 @@
-import { auth, db } from '@/services';
-import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
-import { googleProvider } from '@/services';
-import { type SignupFormT } from '@/types';
-import { getIdOfUrlsInDB } from '@/indexedDB';
 import { doc, updateDoc } from 'firebase/firestore';
-import { getStore } from '@/indexedDB';
+import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
+import { googleProvider, auth, db } from '@/services';
+import { getIdOfUrlsInDB, getStore } from '@/indexedDB';
 import { handleError } from '@/utils';
+import { type SignupFormT } from '@/types';
 
 export const useSignup = () => {
     const migrateLocalDataToUser = async (uid: string) => {
