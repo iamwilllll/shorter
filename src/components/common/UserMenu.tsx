@@ -18,7 +18,7 @@ export function UserMenu() {
             />
 
             {active && (
-                <div className="border-default-border bg-tertiary-surface absolute right-0 z-20 mt-2 w-48 rounded-md border py-1 shadow-lg">
+                <div className="border-default-border bg-tertiary-surface absolute right-0 z-20 mt-2 w-48 rounded-lg border py-1 shadow-lg">
                     <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left">Profile</button>
                     <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left">Settings</button>
                     <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left">Messages</button>

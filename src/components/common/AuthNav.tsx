@@ -7,12 +7,12 @@ export function AuthNav({ ...props }) {
     return (
         <div className="flex gap-4">
             <Button
-                fn={() => navigate('/login')}
+                onClick={() => navigate('/login')}
                 className={`border-default-border border bg-transparent hover:bg-transparent`}
                 label="Log in"
                 {...props}
             />
-            <Button fn={() => navigate('/signup')} label="Sign up" {...props} />
+            <Button onClick={() => navigate('/signup')} label="Sign up" {...props} />
         </div>
     );
 }

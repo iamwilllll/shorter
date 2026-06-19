@@ -8,11 +8,8 @@ type LandingHeroProps = {
 export function LandingHero({ className, ...props }: LandingHeroProps) {
     return (
         <motion.section className={` ${className || ''}`} {...props}>
-            <motion.section className="mb-10 md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 md:m-auto md:max-w-130">
-                <motion.div
-                    className="relative mx-auto mb-5 flex w-fit justify-center overflow-hidden rounded-full p-px md:m-0 md:mb-5"
-                    transition={{ opacity: { duration: 1.5 } }}
-                >
+            <section className="mb-10 md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 md:m-auto md:max-w-130">
+                <div className="relative mx-auto mb-5 flex w-fit justify-center overflow-hidden rounded-full p-px md:m-0 md:mb-5">
                     <motion.div
                         className="via-brand absolute inset-0 top-1/2 size-60 -translate-y-1/2 rounded-full bg-conic from-transparent to-transparent"
                         animate={{ rotate: 360 }}
@@ -26,7 +23,7 @@ export function LandingHero({ className, ...props }: LandingHeroProps) {
                     <p className="bg-primary-surface text-brand relative rounded-full px-2 py-1 text-center text-sm font-light">
                         Fast. Simple. Powerful.
                     </p>
-                </motion.div>
+                </div>
 
                 <h1 className="text-primary-text mb-5 text-4xl font-bold md:text-5xl">
                     Shorten Links,
@@ -37,9 +34,12 @@ export function LandingHero({ className, ...props }: LandingHeroProps) {
                     Shorter is a fast and accessible URLs shortener that work across all devices. Track click, generate QR codes
                     and manage your links in one place.
                 </p>
-            </motion.section>
+            </section>
 
-            <CreateUrlForm className="m-auto max-w-130 md:col-span-1 md:col-start-2 md:row-start-1 md:row-end-2" />
+            <CreateUrlForm
+                className="m-auto max-w-130 md:col-span-1 md:col-start-2 md:row-start-1 md:row-end-2"
+                {...{ animate: { y: 0 }, initial: { y: 5 }, transition: { duration: 0.5, ease: 'easeInOut' } }}
+            />
         </motion.section>
     );
 }
