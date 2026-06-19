@@ -8,5 +8,6 @@ export * from './landing/LandingFeaturedCard';
 
 export * from './forms/CreateUrlForm';
 export * from './forms/SigninForm';
+export * from './forms/SignUpForm';
 
 export * from './dashboard/UserMenu';

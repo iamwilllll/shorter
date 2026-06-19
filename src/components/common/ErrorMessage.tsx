@@ -6,8 +6,9 @@ type ErrorMessageProps = {
 
 export function ErrorMessage({ className, message, type }: ErrorMessageProps) {
     const textColor = type === 'success' ? 'text-green-600' : 'text-red-500';
+
     return (
-        <p className={`pt-1 pl-1 text-xs transition-all ${message ? 'h-5' : 'none'} ${textColor} ${className || ''} `}>
+        <p className={`text-xs transition-all ${message ? 'h-5 pt-1 pl-1' : 'hidden'} ${textColor} ${className || ''} `}>
             {message}
         </p>
     );

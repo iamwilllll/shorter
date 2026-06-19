@@ -26,8 +26,11 @@ export function SigninForm() {
         return (
             <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
                 <div>
-                    <label className="text-secondary-text mb-2 block text-sm">Email</label>
+                    <label className="text-secondary-text mb-2 block text-sm" htmlFor="email">
+                        Email
+                    </label>
                     <input
+                        id="email"
                         type="email"
                         className="border-default-border bg-primary-surface w-full rounded-lg border px-4 py-3 outline-none"
                         {...register('email', {
@@ -39,8 +42,11 @@ export function SigninForm() {
                 </div>
 
                 <div>
-                    <label className="text-secondary-text mb-2 block text-sm">Password</label>
+                    <label className="text-secondary-text mb-2 block text-sm" htmlFor="password">
+                        Password
+                    </label>
                     <input
+                        id="password"
                         type="password"
                         className="border-default-border bg-primary-surface w-full rounded-lg border px-4 py-3 outline-none"
                         {...register('password', {
