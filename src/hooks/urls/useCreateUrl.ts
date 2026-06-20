@@ -15,6 +15,8 @@ export function useCreateUrl() {
             label: formattedLabel,
             originalUrl,
             createdAt: new Date(),
+            clicks: 0,
+            uniqueClicks: [],
         };
 
         const existingUrl = await getUrlByLabel(label);

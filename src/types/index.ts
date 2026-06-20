@@ -3,9 +3,11 @@ export type UrlT = {
     label: string;
     originalUrl: string;
     createdAt: Date;
+    clicks: number;
+    uniqueClicks: string[];
 };
 
-export type CreateUrlT = Omit<UrlT, 'createdAt' | 'id'>;
+export type CreateUrlT = Omit<UrlT, 'id' | 'createdAt' | 'clicks' | 'uniqueClicks'>;
 
 export type SigninFormT = {
     email: string;

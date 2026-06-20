@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/services';
 import { handleError } from '@/utils';
-import type { UrlT } from '@/types';
 
 export function useGetUrlByLabel() {
     const getUrlByLabel = useCallback(async (label: string) => {
@@ -11,7 +10,7 @@ export function useGetUrlByLabel() {
             const snapshot = await getDocs(q);
 
             if (snapshot.empty) return null;
-            return snapshot.docs[0].data() as Omit<UrlT, 'id'>;
+            return snapshot.docs[0].data();
         } catch (error) {
             handleError(error);
         }
