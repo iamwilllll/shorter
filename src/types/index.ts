@@ -1,11 +1,11 @@
-export type ShortUrlT = {
+export type UrlT = {
     id: string;
     label: string;
     originalUrl: string;
     createdAt: Date;
 };
 
-export type CreateShortUrlT = Omit<ShortUrlT, 'createdAt' | 'id'>;
+export type CreateUrlT = Omit<UrlT, 'createdAt' | 'id'>;
 
 export type SigninFormT = {
     email: string;

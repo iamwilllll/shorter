@@ -2,13 +2,13 @@ import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/services';
 import { useGetUrlByLabel, useAuth } from '@/hooks';
 import { getStore, getIdOfUrlsInDB } from '@/indexedDB';
-import type { CreateShortUrlT } from '@/types';
+import type { CreateUrlT } from '@/types';
 
-export function useCreateShortUrl() {
+export function useCreateUrl() {
     const { getUrlByLabel } = useGetUrlByLabel();
     const { isAuthenticated } = useAuth();
 
-    async function createShortUrl({ label, originalUrl }: CreateShortUrlT) {
+    async function createUrl({ label, originalUrl }: CreateUrlT) {
         const formattedLabel = `/${label.trim().toLowerCase().replace(/\s+/g, '-')}`;
         const newUrl = {
             id: `${crypto.randomUUID()}`,
@@ -37,5 +37,5 @@ export function useCreateShortUrl() {
         return `${window.location.origin}${newUrl.label}`;
     }
 
-    return { createShortUrl };
+    return { createUrl };
 }

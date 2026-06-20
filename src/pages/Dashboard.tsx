@@ -1,3 +1,10 @@
+import { AppLayout } from '@/layout';
+import { CreateUrlForm } from '@/components';
+
 export function Dashboard() {
-    return <div>Dashboard</div>;
+    return (
+        <AppLayout>
+            <CreateUrlForm />
+        </AppLayout>
+    );
 }

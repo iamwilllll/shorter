@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { useCreateShortUrl } from '@/hooks';
+import { useCreateUrl } from '@/hooks';
 import { handleError } from '@/utils';
-import type { CreateShortUrlT } from '@/types';
+import type { UrlT } from '@/types';
 
-export function useShorterForm() {
-    const { createShortUrl } = useCreateShortUrl();
+export function useCreateUrlForm() {
+    const { createUrl } = useCreateUrl();
 
     const [successfulMessage, setSuccessfulMessage] = useState('');
     const [copied, setCopied] = useState(false);
 
-    const handleUrlCreation = async (formData: CreateShortUrlT) => {
+    const handleUrlCreation = async (formData: UrlT) => {
         setSuccessfulMessage('');
 
         try {
-            const response = await createShortUrl({
+            const response = await createUrl({
                 ...formData,
                 label: formData.label.trim(),
                 originalUrl: formData.originalUrl.trim(),

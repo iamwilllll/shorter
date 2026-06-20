@@ -1,5 +1,5 @@
 import { getStore } from '@/indexedDB';
-import { type ShortUrlT } from '@/types';
+import { type UrlT } from '@/types';
 
 export const getIdOfUrlsInDB = async (): Promise<string[]> => {
     const store = await getStore();
@@ -8,7 +8,7 @@ export const getIdOfUrlsInDB = async (): Promise<string[]> => {
         const request = store.getAll();
 
         request.onsuccess = () => {
-            const urls = request.result as ShortUrlT[];
+            const urls = request.result as UrlT[];
 
             const urlIds = urls.filter((url) => typeof url.id === 'string').map((url) => url.id);
 
