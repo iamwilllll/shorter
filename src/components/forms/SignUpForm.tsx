@@ -17,7 +17,7 @@ export function SignUpForm() {
         const response = await handleEmailAndPasswordSignup(data);
 
         if (response?.error) {
-            setErrorMessage(response.message);
+            return setErrorMessage(response.message);
         }
 
         navigate('/signin');

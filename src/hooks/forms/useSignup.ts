@@ -32,10 +32,6 @@ export const useSignup = () => {
             await sendEmailVerification(user);
             await updateProfile(user, { displayName: username, photoURL: null });
             await migrateLocalDataToUser(user.uid);
-
-            if (!user.emailVerified) {
-                throw new Error('Please verify your email before signing in');
-            }
         } catch (err) {
             return handleError(err);
         }
