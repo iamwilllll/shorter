@@ -26,10 +26,11 @@ export function RedirectionPage() {
                 const label = window.location.pathname.slice(1);
                 const url = await getUrlByLabel(label);
                 const visitorId = getVisitorId();
-                const docRef = doc(db, 'urls', url?.id);
 
                 if (url?.originalUrl) return (window.location.href = url?.originalUrl);
-                navigate('/404');
+                if (!url) return navigate('/404');
+
+                const docRef = doc(db, 'urls', url?.id);
 
                 await updateDoc(docRef, {
                     clicks: increment(1),
