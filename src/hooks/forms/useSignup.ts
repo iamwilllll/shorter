@@ -1,5 +1,5 @@
 import { doc, updateDoc } from 'firebase/firestore';
-import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, updateProfile } from 'firebase/auth';
 import { googleProvider, auth, db } from '@/services';
 import { getIdOfUrlsInDB, getStore } from '@/indexedDB';
 import { handleError } from '@/utils';
@@ -20,15 +20,22 @@ export const useSignup = () => {
 
     const handleEmailAndPasswordSignup = async (data: SignupFormT) => {
         try {
-            const { username, email, password } = data;
+            const { username, email, password, confirmPassword } = data;
+
+            if (password !== confirmPassword) {
+                throw new Error('Passwords do not match');
+            }
+
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            await updateProfile(user, {
-                displayName: username,
-            });
-
+            await sendEmailVerification(user);
+            await updateProfile(user, { displayName: username, photoURL: null });
             await migrateLocalDataToUser(user.uid);
+
+            if (!user.emailVerified) {
+                throw new Error('Please verify your email before signing in');
+            }
         } catch (err) {
             return handleError(err);
         }

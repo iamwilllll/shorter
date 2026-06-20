@@ -1,23 +1,17 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { useForm, useWatch } from 'react-hook-form';
-import { useAuth, useSignup } from '@/hooks';
+import { useSignup } from '@/hooks';
 import { ErrorMessage } from '@/components';
 import { type SignupFormT } from '@/types';
+import { useNavigate } from 'react-router-dom';
 
 export function SignUpForm() {
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { handleEmailAndPasswordSignup, handleGoogleSignup } = useSignup();
-    const { isAuthenticated, isLoading } = useAuth();
 
     const { register, handleSubmit, control, formState } = useForm<SignupFormT>();
-    const password = useWatch({
-        control,
-        name: 'password',
-    });
-
-    if (isLoading) return null;
-    if (isAuthenticated) return <Navigate to="/" replace />;
+    const password = useWatch({ control, name: 'password' });
 
     const onSubmit = async (data: SignupFormT) => {
         const response = await handleEmailAndPasswordSignup(data);
@@ -25,6 +19,8 @@ export function SignUpForm() {
         if (response?.error) {
             setErrorMessage(response.message);
         }
+
+        navigate('/signin');
     };
 
     return (
@@ -59,6 +55,10 @@ export function SignUpForm() {
                     className="border-default-border bg-primary-surface w-full rounded-lg border px-4 py-3 outline-none"
                     {...register('email', {
                         required: 'Email is required',
+                        pattern: {
+                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                            message: 'Please enter a valid email address',
+                        },
                     })}
                 />
 
