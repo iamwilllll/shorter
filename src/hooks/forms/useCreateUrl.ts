@@ -3,7 +3,10 @@ import { useCreateUrl } from '@/hooks';
 import { handleError } from '@/utils';
 import type { UrlT } from '@/types';
 
+import { useLoading } from '@/context';
+
 export function useCreateUrlForm() {
+    const { setLoading } = useLoading();
     const { createUrl } = useCreateUrl();
 
     const [successfulMessage, setSuccessfulMessage] = useState('');
@@ -13,6 +16,7 @@ export function useCreateUrlForm() {
         setSuccessfulMessage('');
 
         try {
+            setLoading(true);
             const response = await createUrl({
                 ...formData,
                 label: formData.label.trim(),
@@ -22,6 +26,8 @@ export function useCreateUrlForm() {
             setSuccessfulMessage(response);
         } catch (err) {
             return handleError(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -36,6 +42,8 @@ export function useCreateUrlForm() {
             return true;
         } catch {
             return 'Invalid URL';
+        } finally {
+            setLoading(false);
         }
     };
 
