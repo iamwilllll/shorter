@@ -18,6 +18,7 @@ export const useSignup = () => {
             await sendEmailVerification(user);
             await updateProfile(user, { displayName: username, photoURL: null });
             await migrateLocalUrlToUser(user.uid);
+            await auth.signOut();
         } catch (err) {
             return handleError(err);
         }
