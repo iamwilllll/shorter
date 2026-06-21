@@ -12,8 +12,9 @@ export function useSignin() {
     const handleSigninWithEmailAndPass = async (data: SigninFormT) => {
         try {
             setLoading(true);
+            const response = await signInWithEmailAndPassword(auth, data.email, data.password);
+
             if (user?.emailVerified) {
-                const response = await signInWithEmailAndPassword(auth, data.email, data.password);
                 await migrateLocalUrlToUser(response.user.uid);
             } else {
                 throw new Error('Please verify your email before signing in');
