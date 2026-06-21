@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useAuth } from '@/hooks';
+import { useAuth, useSignout } from '@/hooks';
 
 export function UserMenu() {
     const { user } = useAuth();
     const [active, setActive] = useState(false);
+    const { signOut } = useSignout();
 
     const handleClick = () => {
         setActive(!active);
@@ -18,12 +19,10 @@ export function UserMenu() {
             />
 
             {active && (
-                <div className="border-default-border bg-tertiary-surface absolute right-0 z-20 mt-2 w-48 rounded-lg border py-1 shadow-lg">
-                    <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left">Profile</button>
-                    <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left">Settings</button>
-                    <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left">Messages</button>
-                    <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left">Help</button>
-                    <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left">Logout</button>
+                <div className="border-default-border bg-tertiary-surface absolute z-20 mt-2 w-48 rounded-lg border py-1 shadow-lg">
+                    <button className="hover:bg-secondary-surface block w-full px-4 py-2 text-left" onClick={() => signOut()}>
+                        Logout
+                    </button>
                 </div>
             )}
         </button>
