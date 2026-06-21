@@ -20,3 +20,13 @@ export type SignupFormT = {
     password: string;
     confirmPassword: string;
 };
+
+export type NewUrlT = {
+    id: string;
+    uid?: string;
+    label: string;
+    originalUrl: string;
+    createdAt: Date;
+    clicks: number;
+    uniqueClicks: string[];
+};
