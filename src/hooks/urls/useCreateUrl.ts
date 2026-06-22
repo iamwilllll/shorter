@@ -3,7 +3,6 @@ import { db } from '@/services';
 import { useGetUrlByLabel, useAuth } from '@/hooks';
 import { getStore, getIdOfUrlsInDB } from '@/indexedDB';
 import type { CreateUrlT, NewUrlT } from '@/types';
-import { handleError } from '@/utils';
 import { useLoading } from '@/context';
 
 export function useCreateUrl() {
@@ -12,43 +11,39 @@ export function useCreateUrl() {
     const { setLoading } = useLoading();
 
     async function createUrl({ label, originalUrl }: CreateUrlT) {
-        try {
-            setLoading(true);
-            const formattedLabel = `/${label.trim().toLowerCase().replace(/\s+/g, '-')}`;
-            const newUrl: NewUrlT = {
-                id: `${crypto.randomUUID()}`,
-                label: formattedLabel,
-                originalUrl,
-                createdAt: new Date(),
-                clicks: 0,
-                uniqueClicks: [],
-            };
+        // ?? This hook doesn't use try/catch because the hook that uses it returns errors; if it's put here, it will handle them from here, and that's not what we want.
 
-            const existingUrl = await getUrlByLabel(label);
-            if (existingUrl) throw new Error('URL with this label already exists');
+        setLoading(true);
+        const formattedLabel = `/${label.trim().toLowerCase().replace(/\s+/g, '-')}`;
+        const newUrl: NewUrlT = {
+            id: `${crypto.randomUUID()}`,
+            label: formattedLabel,
+            originalUrl,
+            createdAt: new Date(),
+            clicks: 0,
+            uniqueClicks: [],
+        };
 
-            if (!isAuthenticated) {
-                const urlIds = await getIdOfUrlsInDB();
+        const existingUrl = await getUrlByLabel(label);
+        if (existingUrl) throw new Error('URL with this label already exists');
 
-                if (urlIds.length > 25) {
-                    throw new Error('You have reached the maximum limit of 25 URLs. Please sign up.');
-                }
+        if (!isAuthenticated) {
+            const urlIds = await getIdOfUrlsInDB();
+
+            if (urlIds.length > 25) {
+                throw new Error('You have reached the maximum limit of 25 URLs. Please sign up.');
             }
-
-            if (!isAuthenticated) {
-                const store = await getStore();
-                store.add(newUrl);
-            }
-
-            if (user) newUrl.uid = user.uid;
-            await setDoc(doc(db, 'urls', newUrl.id), newUrl);
-
-            return `${window.location.origin}${newUrl.label}`;
-        } catch (err) {
-            handleError(err);
-        } finally {
-            setLoading(false);
         }
+
+        if (!isAuthenticated) {
+            const store = await getStore();
+            store.add(newUrl);
+        }
+
+        if (user) newUrl.uid = user.uid;
+        await setDoc(doc(db, 'urls', newUrl.id), newUrl);
+
+        return `${window.location.origin}${newUrl.label}`;
     }
 
     return { createUrl };
