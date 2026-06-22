@@ -1,11 +1,5 @@
 import { FirebaseError } from 'firebase/app';
-
-interface CustomErrorResponse {
-    message: string;
-    code: string;
-    originalError: unknown;
-    error: boolean;
-}
+import { type CustomErrorResponse } from '@/types';
 
 export const handleError = (error: unknown): CustomErrorResponse => {
     let message = 'An unexpected error occurred. Please try again.';
