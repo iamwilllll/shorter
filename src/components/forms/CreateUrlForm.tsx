@@ -1,23 +1,80 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { motion } from 'motion/react';
 import type { UrlT } from '@/types';
 import { useCreateUrlForm } from '@/hooks';
 import { ErrorMessage } from '@/components';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
+
+function CopyToast({ handleCopy }: { handleCopy: () => void }) {
+    const [copied, setCopied] = useState(false);
+
+    const onClick = async () => {
+        handleCopy();
+        setCopied(true);
+
+        const timer = setTimeout(() => {
+            setCopied(false);
+        }, 2000);
+
+        clearTimeout(timer);
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 12, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{
+                duration: 0.2,
+                ease: 'easeOut',
+            }}
+            className="border-success/30 bg-success/10 text-primary flex min-w-70 items-center justify-between gap-4 rounded-lg border px-4 py-3 shadow-xl backdrop-blur-md"
+        >
+            <div className="flex items-center gap-3">
+                <svg width="16" height="16" className="text-success">
+                    <use href="/assets/icons.svg#check-icon" />
+                </svg>
+
+                <div>
+                    <p className="text-sm font-semibold">URL created</p>
+                    <p className="text-secondary-text text-xs">Your short link is ready to use</p>
+                </div>
+            </div>
+
+            <button
+                type="button"
+                onClick={onClick}
+                className="hover:bg-default-hover flex h-9 w-9 items-center justify-center rounded-lg transition-all hover:scale-105 active:scale-95"
+            >
+                <motion.svg
+                    key={copied ? 'check' : 'copy'}
+                    width="18"
+                    height="18"
+                    initial={{ scale: 0.7, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.15 }}
+                >
+                    <use href={copied ? '/assets/icons.svg#check-icon' : '/assets/icons.svg#doc-icon'} />
+                </motion.svg>
+            </button>
+        </motion.div>
+    );
+}
 
 export function CreateUrlForm({ className, ...props }: { className?: string }) {
-    const [errorMessage, setErrorMessage] = useState<string>('');
-
-    const { register, handleSubmit, formState } = useForm<UrlT>();
-    const { handleUrlCreation, validateURL, handleCopy, copied, successfulMessage } = useCreateUrlForm();
+    const { register, handleSubmit, formState, reset } = useForm<UrlT>({ defaultValues: { originalUrl: '', label: '' } });
+    const { handleUrlCreation, validateURL, handleCopy } = useCreateUrlForm();
 
     const onSubmit = async (data: UrlT) => {
-        setErrorMessage('');
         const response = await handleUrlCreation(data);
 
         if (response?.error) {
-            setErrorMessage(response.message);
+            return toast.error(response.message);
         }
+
+        return toast.custom(<CopyToast handleCopy={handleCopy} />, { duration: 7000 });
+        reset();
     };
 
     return (
@@ -96,42 +153,6 @@ export function CreateUrlForm({ className, ...props }: { className?: string }) {
             >
                 {formState.isSubmitting ? 'Creating...' : 'Create Short URL'}
             </button>
-
-            <div className="h-12">
-                <div
-                    className={`h-full transform transition-all duration-300 ${
-                        successfulMessage || errorMessage
-                            ? 'translate-y-0 opacity-100'
-                            : 'pointer-events-none translate-y-1 opacity-0'
-                    }`}
-                >
-                    {successfulMessage ? (
-                        <div className="flex h-full items-center justify-between gap-3 rounded-lg border border-green-500/20 bg-green-500/5 px-4 shadow-inner">
-                            <span className="truncate text-sm font-medium text-green-600">{successfulMessage}</span>
-
-                            <button
-                                type="button"
-                                onClick={handleCopy}
-                                className="shrink-0 text-xs font-semibold text-green-700 underline transition-colors hover:text-green-800"
-                            >
-                                {copied ? (
-                                    <svg>
-                                        <use href="/assets/icons.svg#check-icon" />
-                                    </svg>
-                                ) : (
-                                    <svg>
-                                        <use href="/assets/icons.svg#doc-icon" />
-                                    </svg>
-                                )}
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="text-brand border-brand/20 bg-brand/5 flex h-full items-center rounded-lg border px-4 text-sm font-medium shadow-inner">
-                            {errorMessage}
-                        </div>
-                    )}
-                </div>
-            </div>
         </motion.form>
     );
 }
