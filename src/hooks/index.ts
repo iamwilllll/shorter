@@ -7,3 +7,4 @@ export * from './forms/useSignup';
 
 export * from './auth/useAuth';
 export * from './auth/useSignout';
+export * from './auth/useSendEmailVerification';

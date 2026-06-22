@@ -6,7 +6,7 @@ import { useLoading } from '@/context';
 export function useEmailVerification() {
     const { setLoading } = useLoading();
 
-    const resendVerificationEmail = async () => {
+    const resendEmail = async () => {
         try {
             setLoading(true);
             const user = auth.currentUser;
@@ -24,6 +24,6 @@ export function useEmailVerification() {
     };
 
     return {
-        resendVerificationEmail,
+        resendEmail,
     };
 }
