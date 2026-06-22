@@ -15,6 +15,9 @@
 
     --surface-modal: #000000b6;
     --border-default: #303030;
+
+    --success: #4caf50;
+    --error: #f44336;
 }
 
 @theme {
@@ -32,6 +35,9 @@
 
     --color-modal-surface: var(--surface-modal);
     --color-default-border: var(--border-default);
+
+    --color-success: var(--success);
+    --color-error: var(--error);
 }
 
 svg {
@@ -47,7 +53,7 @@ button {
 *,
 *:after,
 *:before {
-    border-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html,
@@ -118,4 +124,22 @@ body,
     100% {
         transform: rotate(0.5turn) scale(1);
     }
+}
+
+.default_toast {
+    padding: 8px 10px;
+    margin: 0;
+    background: #fff;
+    color: #363636;
+    border-radius: 8px;
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.1),
+        0 3px 3px rgba(0, 0, 0, 0.05);
+    font-size: 14px;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 350px;
+    pointer-events: auto;
 }
