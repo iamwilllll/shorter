@@ -5,7 +5,6 @@ export function Dashboard() {
     return (
         <AppLayout>
             <CreateUrlForm />
-
             <UserMenu />
         </AppLayout>
     );
