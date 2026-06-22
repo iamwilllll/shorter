@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
 import { googleProvider, auth } from '@/services';
 import { handleError, migrateLocalUrlToUser } from '@/utils';
 import { type SignupFormT } from '@/types';
-
+import toast from 'react-hot-toast';
 export const useSignup = () => {
     const handleEmailAndPasswordSignup = async (data: SignupFormT) => {
         try {
@@ -28,6 +28,7 @@ export const useSignup = () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             await migrateLocalUrlToUser(result.user.uid);
+            toast.success('Welcome! Your account has been created using Google Sign-In.');
         } catch (err) {
             return handleError(err);
         }

@@ -23,7 +23,7 @@ export function useCreateUrlForm() {
                 originalUrl: formData.originalUrl.trim(),
             });
 
-            setSuccessfulMessage(response);
+            if (response) setSuccessfulMessage(response);
         } catch (err) {
             return handleError(err);
         } finally {
