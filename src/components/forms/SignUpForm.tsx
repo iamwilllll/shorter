@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useSignup } from '@/hooks';
 import { ErrorMessage } from '@/components';
 import { type SignupFormT } from '@/types';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 export function SignUpForm() {
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { handleEmailAndPasswordSignup, handleGoogleSignup } = useSignup();
 
     const { register, handleSubmit, control, formState } = useForm<SignupFormT>();
@@ -17,9 +16,10 @@ export function SignUpForm() {
         const response = await handleEmailAndPasswordSignup(data);
 
         if (response?.error) {
-            return setErrorMessage(response.message);
+            return toast.error(response.message);
         }
 
+        toast.success('We sent a verification email to your email address, please check your spam folder.', { duration: 5000 });
         navigate('/signin');
     };
 
@@ -102,8 +102,6 @@ export function SignUpForm() {
                 <ErrorMessage message={formState.errors.confirmPassword?.message} />
             </div>
 
-            {errorMessage && <ErrorMessage message={errorMessage} className="w-full sm:p-0 sm:text-[14px]" />}
-
             <button
                 type="submit"
                 disabled={formState.isSubmitting}
@@ -120,6 +118,7 @@ export function SignUpForm() {
 
             <button
                 onClick={handleGoogleSignup}
+                type="button"
                 className="border-default-border hover:bg-primary-surface flex w-full items-center justify-center gap-3 rounded-lg border py-3 transition"
             >
                 <svg width="20" height="20" viewBox="0 0 48 48">

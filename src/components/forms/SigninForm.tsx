@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@/components';
 import { useSignin } from '@/hooks';
 import { type SigninFormT } from '@/types';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 export function SigninForm() {
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const { handleSigninWithEmailAndPass, handleGoogleSignin } = useSignin();
     const { register, handleSubmit, formState } = useForm<SigninFormT>();
@@ -16,7 +15,7 @@ export function SigninForm() {
         const response = await handleSigninWithEmailAndPass(data);
 
         if (response?.error) {
-            return setErrorMessage(response.message);
+            return toast.error(response.message);
         }
 
         navigate('/dashboard');
@@ -59,8 +58,6 @@ export function SigninForm() {
 
                 <ErrorMessage message={formState.errors.password?.message} />
             </div>
-
-            {errorMessage && <ErrorMessage message={errorMessage} className="w-full sm:p-0 sm:text-[14px]" />}
 
             <button
                 type="submit"
