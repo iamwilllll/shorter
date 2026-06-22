@@ -6,18 +6,16 @@ import { ErrorMessage } from '@/components';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 
-function CopyToast({ handleCopy }: { handleCopy: () => void }) {
+function CopyToast({ url }: { url: string }) {
     const [copied, setCopied] = useState(false);
 
-    const onClick = async () => {
-        handleCopy();
+    const handleCopy = async () => {
+        await navigator.clipboard.writeText(url);
         setCopied(true);
 
-        const timer = setTimeout(() => {
+        setTimeout(() => {
             setCopied(false);
         }, 2000);
-
-        clearTimeout(timer);
     };
 
     return (
@@ -44,7 +42,7 @@ function CopyToast({ handleCopy }: { handleCopy: () => void }) {
 
             <button
                 type="button"
-                onClick={onClick}
+                onClick={handleCopy}
                 className="hover:bg-default-hover flex h-9 w-9 items-center justify-center rounded-lg transition-all hover:scale-105 active:scale-95"
             >
                 <motion.svg
@@ -64,17 +62,17 @@ function CopyToast({ handleCopy }: { handleCopy: () => void }) {
 
 export function CreateUrlForm({ className, ...props }: { className?: string }) {
     const { register, handleSubmit, formState, reset } = useForm<UrlT>({ defaultValues: { originalUrl: '', label: '' } });
-    const { handleUrlCreation, validateURL, handleCopy } = useCreateUrlForm();
+    const { handleUrlCreation, validateURL } = useCreateUrlForm();
 
     const onSubmit = async (data: UrlT) => {
         const response = await handleUrlCreation(data);
 
-        if (response?.error) {
+        if (typeof response !== 'string' && response.error) {
             return toast.error(response.message);
         }
 
-        return toast.custom(<CopyToast handleCopy={handleCopy} />, { duration: 7000 });
         reset();
+        return toast.custom(<CopyToast url={response as string} />, { duration: 7000 });
     };
 
     return (

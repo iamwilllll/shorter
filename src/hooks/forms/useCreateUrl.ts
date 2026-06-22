@@ -1,20 +1,13 @@
-import { useState } from 'react';
 import { useCreateUrl } from '@/hooks';
 import { handleError } from '@/utils';
-import type { UrlT } from '@/types';
-
+import type { UrlT, CustomErrorResponse } from '@/types';
 import { useLoading } from '@/context';
 
 export function useCreateUrlForm() {
     const { setLoading } = useLoading();
     const { createUrl } = useCreateUrl();
 
-    const [successfulMessage, setSuccessfulMessage] = useState('');
-    const [copied, setCopied] = useState(false);
-
-    const handleUrlCreation = async (formData: UrlT) => {
-        setSuccessfulMessage('');
-
+    const handleUrlCreation = async (formData: UrlT): Promise<string | CustomErrorResponse> => {
         try {
             setLoading(true);
             const response = await createUrl({
@@ -23,7 +16,7 @@ export function useCreateUrlForm() {
                 originalUrl: formData.originalUrl.trim(),
             });
 
-            if (response) setSuccessfulMessage(response);
+            return response;
         } catch (err) {
             return handleError(err);
         } finally {
@@ -47,15 +40,5 @@ export function useCreateUrlForm() {
         }
     };
 
-    const handleCopy = async () => {
-        await navigator.clipboard.writeText(successfulMessage);
-
-        setCopied(true);
-
-        setTimeout(() => {
-            setCopied(false);
-        }, 2000);
-    };
-
-    return { handleUrlCreation, validateURL, handleCopy, successfulMessage, copied };
+    return { handleUrlCreation, validateURL };
 }
