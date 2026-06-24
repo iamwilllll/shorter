@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, updateProfile } from 'firebase/auth';
+import toast from 'react-hot-toast';
 import { googleProvider, auth } from '@/services';
 import { handleError, migrateLocalUrlToUser } from '@/utils';
 import { type SignupFormT } from '@/types';
-import toast from 'react-hot-toast';
+
 export const useSignup = () => {
     const handleEmailAndPasswordSignup = async (data: SignupFormT) => {
         try {
