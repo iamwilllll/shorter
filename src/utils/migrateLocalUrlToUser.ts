@@ -6,6 +6,7 @@ import { handleError } from '@/utils';
 export const migrateLocalUrlToUser = async (uid: string) => {
     try {
         const urlIds = await getIdOfUrlsInDB();
+        if (urlIds.length === 0) return;
         await Promise.all(urlIds.map((id) => updateDoc(doc(db, 'urls', id), { uid })));
 
         const store = await getStore();
