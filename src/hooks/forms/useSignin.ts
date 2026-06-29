@@ -14,7 +14,6 @@ export function useSignin() {
             const response = await signInWithEmailAndPassword(auth, data.email, data.password);
 
             if (!response.user.emailVerified) {
-                await auth.signOut();
                 throw new AppError('auth/email-not-verified');
             }
 

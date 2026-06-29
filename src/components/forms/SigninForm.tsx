@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@/components';
-import { useSignin } from '@/hooks';
+import { useSignin, useEmailVerification } from '@/hooks';
 import { type SigninFormT } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -9,12 +9,35 @@ export function SigninForm() {
     const navigate = useNavigate();
 
     const { handleSigninWithEmailAndPass, handleGoogleSignin } = useSignin();
+    const { resendEmail } = useEmailVerification();
     const { register, handleSubmit, formState } = useForm<SigninFormT>();
+
+    const handleResendEmailVerification = async () => {
+        const response = await resendEmail();
+
+        if (response?.error) {
+            return toast.error(response.message);
+        }
+
+        return toast.success('Verification email sent successfully');
+    };
 
     const onSubmit = async (data: SigninFormT) => {
         const response = await handleSigninWithEmailAndPass(data);
 
         if (response?.error) {
+            if (response.code === 'auth/email-not-verified') {
+                return toast.error(
+                    <p>
+                        {response.message}
+                        <button className="underline" onClick={() => handleResendEmailVerification()}>
+                            Resend Verification Email
+                        </button>
+                    </p>,
+                    { duration: 7000 }
+                );
+            }
+
             return toast.error(response.message);
         }
 
