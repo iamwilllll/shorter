@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components';
+import { Button, AppIcon } from '@/components';
 
 export function LandingNav({ className }: { className?: string }) {
     const navigate = useNavigate();
@@ -12,17 +12,7 @@ export function LandingNav({ className }: { className?: string }) {
 
     return (
         <nav className={`flex items-center justify-between ${className || ''}`}>
-            <Button
-                className="flex items-center gap-1.5 bg-transparent hover:bg-transparent md:px-0"
-                onClick={() => navigate('/')}
-                {...motionProps}
-            >
-                <svg className="text-brand">
-                    <use href="/icon.svg#link-icon" />
-                </svg>
-
-                <h2 className="text-2xl font-bold text-white">Shorter</h2>
-            </Button>
+            <AppIcon {...motionProps} />
 
             <div className="flex gap-4">
                 <Button

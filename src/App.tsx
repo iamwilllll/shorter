@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '@/components';
-import { LandingPage, RedirectionPage, NotFound, Signin, Signup, Dashboard } from '@/pages';
+import { LandingPage, RedirectionPage, NotFound, Signin, Signup, Home } from '@/pages';
 
 export default function App() {
     return (
@@ -12,7 +12,7 @@ export default function App() {
             <Route path="/signup" element={<Signup />} />
 
             <Route element={<ProtectedRoute />}>
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Home />} />
             </Route>
         </Routes>
     );
