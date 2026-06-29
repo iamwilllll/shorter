@@ -28,7 +28,7 @@ export function LandingPage() {
     ];
 
     return (
-        <AppLayout className="m-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-10 p-4 md:gap-5 md:p-5">
+        <AppLayout className="grid grid-rows-[auto_1fr] gap-10 md:gap-5">
             <LandingNav className="col-start-1 row-start-1 w-full" />
 
             <section className="row-start-2 grid gap-10 md:grid-cols-2 md:grid-rows-[5.5fr_2.5fr_1fr] md:gap-5">

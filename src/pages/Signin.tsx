@@ -10,7 +10,7 @@ export function Signin() {
     if (isAuthenticated && user?.emailVerified) return <Navigate to="/dashboard" replace />;
     if (!isAuthenticated || !user?.emailVerified)
         return (
-            <AppLayout className="m-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-10 p-4 md:gap-5 md:p-5">
+            <AppLayout className="grid grid-rows-[auto_1fr] gap-10 md:gap-5">
                 <LandingNav />
 
                 <section className="bg-secondary-surface border-default-border mx-auto flex w-full max-w-md flex-col items-center justify-center rounded-lg border p-5 md:max-w-150 md:p-10">

@@ -6,7 +6,7 @@ export function NotFound() {
     const navigate = useNavigate();
 
     return (
-        <AppLayout className="flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-transparent to-slate-500/5 px-4">
+        <AppLayout className="flex min-h-screen flex-col items-center justify-center px-4">
             <div className="mb-8 text-center">
                 <span className="text-tertiary-text text-sm font-bold tracking-widest uppercase">Shoter</span>
 

@@ -21,7 +21,7 @@ export function AppLayout({ className, children }: AppLayoutProps) {
     }, [loading, isLoading]);
 
     return (
-        <main className={className}>
+        <main className={`m-auto h-full max-w-385 p-4 md:p-5 ${className}`}>
             {(loading || isLoading) && (
                 <div className="bg-modal-surface fixed inset-0 z-50 flex items-center justify-center">
                     <div className="loader"></div>
