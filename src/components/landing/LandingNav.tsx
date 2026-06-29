@@ -12,7 +12,7 @@ export function LandingNav({ className }: { className?: string }) {
 
     return (
         <nav className={`flex items-center justify-between ${className || ''}`}>
-            <AppIcon {...motionProps} />
+            <AppIcon />
 
             <div className="flex gap-4">
                 <Button
