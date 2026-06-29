@@ -29,7 +29,7 @@ export function SigninForm() {
             if (response.code === 'auth/email-not-verified') {
                 return toast.error(
                     <p>
-                        {response.message}
+                        {response.message} {' '}
                         <button className="underline" onClick={() => handleResendEmailVerification()}>
                             Resend Verification Email
                         </button>

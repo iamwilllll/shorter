@@ -46,7 +46,7 @@ export const handleError = (error: unknown): CustomErrorResponse => {
                 message = 'Too many requests. Please try again later.';
                 break;
             case 'auth/email-not-verified':
-                message = 'Please verify your email address before logging in.';
+                message = 'Please verify your email address before logging in, please check your inbox.';
                 break;
             default:
                 message = `Firebase service error: ${error.message}`;
