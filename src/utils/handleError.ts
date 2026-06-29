@@ -1,11 +1,20 @@
 import { FirebaseError } from 'firebase/app';
 import { type CustomErrorResponse } from '@/types';
 
+export class AppError extends Error {
+    code: string;
+
+    constructor(code: string, message?: string) {
+        super(message);
+        this.code = code;
+    }
+}
+
 export const handleError = (error: unknown): CustomErrorResponse => {
     let message = 'An unexpected error occurred. Please try again.';
     let code = 'UNKNOWN_ERROR';
 
-    if (error instanceof FirebaseError) {
+    if (error instanceof FirebaseError || error instanceof AppError) {
         code = error.code;
         switch (error.code) {
             case 'auth/email-already-in-use':
@@ -35,6 +44,9 @@ export const handleError = (error: unknown): CustomErrorResponse => {
                 break;
             case 'auth/too-many-requests':
                 message = 'Too many requests. Please try again later.';
+                break;
+            case 'auth/email-not-verified':
+                message = 'Please verify your email address before logging in.';
                 break;
             default:
                 message = `Firebase service error: ${error.message}`;

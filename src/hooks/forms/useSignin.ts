@@ -1,9 +1,9 @@
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '@/services';
-import { handleError, migrateLocalUrlToUser } from '@/utils';
-import { type SigninFormT } from '@/types';
-import { useLoading } from '@/context';
 import toast from 'react-hot-toast';
+import { auth, googleProvider } from '@/services';
+import { useLoading } from '@/context';
+import { handleError, AppError, migrateLocalUrlToUser } from '@/utils';
+import { type SigninFormT } from '@/types';
 
 export function useSignin() {
     const { setLoading } = useLoading();
@@ -13,10 +13,12 @@ export function useSignin() {
             setLoading(true);
             const response = await signInWithEmailAndPassword(auth, data.email, data.password);
 
-            if (response.user?.emailVerified) await migrateLocalUrlToUser(response.user.uid);
-            if (!response.user?.emailVerified) {
-                throw new Error('Please verify your email before signing in');
+            if (!response.user.emailVerified) {
+                await auth.signOut();
+                throw new AppError('auth/email-not-verified');
             }
+
+            await migrateLocalUrlToUser(response.user.uid);
 
             toast.success('Welcome back!');
         } catch (err) {
